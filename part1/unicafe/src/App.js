@@ -4,12 +4,20 @@ const Statistics = (props) => {
   return props.all !== 0 ? (
     <div>
       <h3>Statistics</h3>
-      <StatisticsLine text = "Good" value = {props.good}/>
-      <StatisticsLine text = "Neutral" value = {props.neutral}/>
-      <StatisticsLine text = "Bad" value = {props.bad}/>
-      <StatisticsLine text = "All" value = {props.all}/>
-      <StatisticsLine text = "Average" value = {(props.good+props.bad*-1)/props.all}/>
-      <StatisticsLine text = "Positive" value =  {(props.good/props.all*100) + "%"}/>
+      <table>
+        <StatisticsLine text="Good" value={props.good} />
+        <StatisticsLine text="Neutral" value={props.neutral} />
+        <StatisticsLine text="Bad" value={props.bad} />
+        <StatisticsLine text="All" value={props.all} />
+        <StatisticsLine
+          text="Average"
+          value={(props.good + props.bad * -1) / props.all}
+        />
+        <StatisticsLine
+          text="Positive"
+          value={(props.good / props.all) * 100 + "%"}
+        />
+      </table>
       {/* <p>Good: {props.good}</p>
       <p>Neutral: {props.neutral}</p>
       <p>Bad: {props.bad}</p>
@@ -26,15 +34,21 @@ const Statistics = (props) => {
 };
 
 const StatisticsLine = (props) => {
-  return(
-    <p><strong>{props.text}:</strong> {props.value}</p>
-  )
-}
+  return (
+    <tbody>
+      <tr>
+        <td>
+          <strong>{props.text}: </strong>
+        </td>
+        <td>&nbsp;</td>
+        <td> {props.value}</td>
+      </tr>
+    </tbody>
+  );
+};
 
 const Button = (props) => {
-  return (
-      <button onClick={props.onClick}>{props.description}</button>
-  );
+  return <button onClick={props.onClick}>{props.description}</button>;
 };
 
 const App = () => {
