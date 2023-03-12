@@ -16,27 +16,52 @@ const App = () => {
 
   const [votes, setVotes] = useState(Array(anecdotes.length).fill(0));
 
-  const voteAnecdote = ()=> {
+  const voteAnecdote = () => {
     const newVotes = [...votes];
-    newVotes[selected] +=1;
+    newVotes[selected] += 1;
     setVotes(newVotes);
-  }
+  };
 
   function getRandomInt(max) {
     return Math.floor(Math.random() * max);
   }
 
+  const Heading = ({ title }) => {
+    return <h1>{title}</h1>;
+  };
+
+  const Content = ({ text }) => {
+    return <h4>{text}</h4>;
+  };
+
+  const Button = ({ text, onClick }) => {
+    return <button onClick={onClick}>{text}</button>;
+  };
+
+  const HighestAnecdote = ({ anecdotes, allVotes }) => {
+    const highestVote = Math.max(...votes);
+    const highestAnecdote = anecdotes[allVotes.indexOf(highestVote)];
+    return (
+      <div>
+        <h4>{highestAnecdote}</h4>
+        <p>Has {highestVote} votes</p>
+      </div>
+    );
+  };
 
   return (
     <div>
-      <h3>{anecdotes[selected]}</h3>
+      <Heading title="Anecdote of the day" />
+      <Content text={anecdotes[selected]} />
       <p>Has {votes[selected]} votes</p>
-      <button onClick={voteAnecdote}>
-        <strong>Vote</strong>
-      </button>
-      <button onClick={() => setSelected(getRandomInt(anecdotes.length))}>
-        Next Anecdote
-      </button>
+      <Button onClick={voteAnecdote} text="Vote" />
+      <Button
+        onClick={() => setSelected(getRandomInt(anecdotes.length))}
+        text="Next Anecdote"
+      />
+      <hr></hr>
+      <Heading title="Anecdote with most votes" />
+      <HighestAnecdote anecdotes={anecdotes} allVotes={votes} />
     </div>
   );
 };
